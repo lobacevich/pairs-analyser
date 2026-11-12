@@ -1,6 +1,6 @@
 package by.lobacevich.analyzer.controller;
 
-import by.lobacevich.analyzer.dto.BinanceAvgPriceResponse;
+import by.lobacevich.analyzer.dto.PriceDtoResponse;
 import by.lobacevich.analyzer.service.impl.PriceRecordServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +14,8 @@ public class PriceRecordController {
 
     private final PriceRecordServiceImpl service;
 
-    @GetMapping
-    public BinanceAvgPriceResponse getResponse() {
-        return service.getInformationFromBinance();
+    @GetMapping("/last")
+    public PriceDtoResponse getResponse() {
+        return service.getLatestRecord();
     }
 }

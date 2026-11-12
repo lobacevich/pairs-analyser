@@ -11,16 +11,16 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
-  liquibase:
-    enabled: true
-    drop-first: false
-
   jpa:
     hibernate.ddl-auto: validate
     show-sql: true
     properties.hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       format_sql: true
+
+  liquibase:
+    enabled: true
+    drop-first: false
 
 binance:
   api:
