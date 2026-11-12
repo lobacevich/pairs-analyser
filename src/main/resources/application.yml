@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: pairs-analyzer
+
+  config:
+    import: optional:file:.env[.properties]
+
+  datasource:
+    driver-class-name: ${DB_DRIVER:org.postgresql.Driver}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  liquibase:
+    enabled: true
+    drop-first: false
+
+  jpa:
+    hibernate.ddl-auto: validate
+    show-sql: true
+    properties.hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      format_sql: true
+
+binance:
+  api:
+    url: ${BINANCE_API_URL:https://api.binance.com}
+    symbol: ${BINANCE_SYMBOL:BNBUSDT}
+
+poll:
+  interval: ${BINANCE_POLL_INTERVAL:PT30S}
+
+logging:
+  file.name: logs/log.log
+  level:
+    org.hibernate:
+      SQL: debug
+      type.descriptor.sql.BasicBinder: trace
+    org.springframework: warn
+    org.springframework.cache: trace
