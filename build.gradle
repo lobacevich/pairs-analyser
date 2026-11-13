@@ -31,6 +31,8 @@ dependencies {
 
     implementation 'io.github.resilience4j:resilience4j-spring-boot3:2.2.0'
 
+    implementation 'org.apache.commons:commons-math3:3.6.1'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:postgresql'

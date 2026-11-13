@@ -17,10 +17,21 @@ spring:
     properties.hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       format_sql: true
+      jdbc:
+        time_zone: UTC
 
   liquibase:
     enabled: true
     drop-first: false
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+    tryItOutEnabled: true
 
 binance:
   api:
@@ -30,11 +41,14 @@ binance:
 poll:
   interval: ${BINANCE_POLL_INTERVAL:PT30S}
 
+trend:
+  min-slope-threshold: 0.001
+  min-r-square: 0.3
+
 logging:
   file.name: logs/log.log
   level:
     org.hibernate:
       SQL: debug
       type.descriptor.sql.BasicBinder: trace
-    org.springframework: warn
-    org.springframework.cache: trace
+    org.springframework: debug

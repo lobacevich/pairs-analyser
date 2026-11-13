@@ -1,6 +1,6 @@
 package by.lobacevich.analyzer.entity.enums;
 
-public enum TrendDirection {
+public enum TrendType {
     UPWARD,
     DOWNWARD,
     FLAT,
