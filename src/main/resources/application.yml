@@ -13,28 +13,45 @@ spring:
 
   jpa:
     hibernate.ddl-auto: validate
-    show-sql: true
+    show-sql: false
     properties.hibernate:
-      dialect: org.hibernate.dialect.PostgreSQLDialect
       format_sql: true
+      jdbc:
+        time_zone: UTC
 
   liquibase:
     enabled: true
     drop-first: false
 
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+    tryItOutEnabled: true
+
 binance:
-  api:
-    url: ${BINANCE_API_URL:https://api.binance.com}
-    symbol: ${BINANCE_SYMBOL:BNBUSDT}
+  api-url: ${BINANCE_API_URL:https://api.binance.com}
+  symbol: ${BINANCE_SYMBOL:BNBUSDT}
 
 poll:
   interval: ${BINANCE_POLL_INTERVAL:PT30S}
 
+trend:
+  min-slope-threshold: 0.001
+  min-r-square: 0.3
+
 logging:
   file.name: logs/log.log
   level:
-    org.hibernate:
-      SQL: debug
-      type.descriptor.sql.BasicBinder: trace
-    org.springframework: warn
-    org.springframework.cache: trace
+    root: INFO
+    by.lobacevich.analyzer: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.springframework.web: INFO
+    org.springframework.jdbc.core: INFO
+    org.springframework.transaction: INFO
+    liquibase: INFO
+    org.apache.http: WARN

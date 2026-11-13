@@ -1,0 +1,6 @@
+poll:
+  interval: PT1H
+binance:
+  symbol: BNBUSDT
+  api:
+    url: http://localhost:1
