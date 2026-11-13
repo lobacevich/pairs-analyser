@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_price_records_table
+      author: Labatsevich Ihar
+      changes:
+        - sqlFile:
+            path: db/changelog/sql/01.create_price_records_table.sql
+            encoding: utf8
+  - changeSet:
+      id: create_indexes
+      author: Labatsevich Ihar
+      changes:
+        - sqlFile:
+            path: db/changelog/sql/02.create_indexes.sql
+            encoding: utf8

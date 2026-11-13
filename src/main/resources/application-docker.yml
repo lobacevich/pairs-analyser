@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: ${DB_DRIVER}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+binance:
+  api-url: ${BINANCE_API_URL}
+  symbol: ${BINANCE_SYMBOL}
+  poll:
+    interval: ${BINANCE_POLL_INTERVAL}
