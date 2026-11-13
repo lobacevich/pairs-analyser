@@ -13,6 +13,9 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
       DB_DRIVER: org.postgresql.Driver
+      BINANCE_API_URL: https://api.binance.com
+      BINANCE_SYMBOL: BNBUSDT
+      BINANCE_POLL_INTERVAL: PT30S
 
   postgres:
     image: postgres:17.6

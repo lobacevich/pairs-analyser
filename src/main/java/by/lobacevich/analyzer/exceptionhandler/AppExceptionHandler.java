@@ -2,6 +2,7 @@ package by.lobacevich.analyzer.exceptionhandler;
 
 import by.lobacevich.analyzer.dto.ErrorDto;
 import by.lobacevich.analyzer.exception.RecordsNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.stream.Collectors;
 
@@ -41,6 +43,12 @@ public class AppExceptionHandler {
                 .collect(Collectors.joining("; "));
         log.error("{}, {}", e.getMessage(), e.getStackTrace());
         return new ResponseEntity<>(new ErrorDto(msg), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ErrorDto> handleNoResource(NoResourceFoundException e, HttpServletRequest request) {
+        log.warn("No handler for {} {}", request.getMethod(), request.getRequestURI());
+        return new ResponseEntity<>(new ErrorDto("Endpoint not found: " + request.getRequestURI()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler

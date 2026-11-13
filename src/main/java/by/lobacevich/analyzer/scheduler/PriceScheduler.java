@@ -21,7 +21,7 @@ public class PriceScheduler {
 
     private final AtomicReference<Instant> blockedUntil = new AtomicReference<>(Instant.MIN);
 
-    @Scheduled(fixedDelayString = "${poll.interval}")
+    @Scheduled(fixedDelayString = "${binance.poll.interval:PT30S}")
     public void poll() {
         Instant until = blockedUntil.get();
         if (Instant.now().isBefore(until)) {

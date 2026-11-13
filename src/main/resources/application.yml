@@ -35,9 +35,8 @@ springdoc:
 binance:
   api-url: ${BINANCE_API_URL:https://api.binance.com}
   symbol: ${BINANCE_SYMBOL:BNBUSDT}
-
-poll:
-  interval: ${BINANCE_POLL_INTERVAL:PT30S}
+  poll:
+    interval: ${BINANCE_POLL_INTERVAL:PT30S}
 
 trend:
   min-slope-threshold: 0.001

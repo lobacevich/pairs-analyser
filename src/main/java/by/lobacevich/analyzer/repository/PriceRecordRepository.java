@@ -16,11 +16,19 @@ public interface PriceRecordRepository extends JpaRepository<PriceRecord, Long> 
 
     Optional<PriceRecord> findTopByOrderByFetchedAtDesc();
 
-    Page<PriceRecord> findByFetchedAtBetween(Instant from, Instant to, Pageable pageable);
+    Page<PriceRecord> findBySymbolAndFetchedAtBetween(String symbol, Instant from, Instant to, Pageable pageable);
 
-    @Query("select avg(p.price) from PriceRecord p where p.fetchedAt between :from and :to")
-    Optional<BigDecimal> findAveragePriceBetween(@Param("from") Instant from, @Param("to") Instant to);
+    @Query("""
+            select avg(p.price) from PriceRecord p where p.symbol = :symbol
+            and p.fetchedAt between :from and :to""")
+    Optional<BigDecimal> findAveragePriceBetween(@Param("symbol") String symbol,
+                                                 @Param("from") Instant from,
+                                                 @Param("to") Instant to);
 
-    @Query("select p from PriceRecord p where p.fetchedAt between :from and :to order by p.fetchedAt asc")
-    List<PriceRecord> findByFetchedAtBetweenOrderByFetchedAtAsc(@Param("from") Instant from, @Param("to") Instant to);
+    @Query("""
+            select p from PriceRecord p where p.symbol = :symbol and
+            p.fetchedAt between :from and :to order by p.fetchedAt asc""")
+    List<PriceRecord> findByFetchedAtBetweenOrderByFetchedAtAsc(@Param("symbol") String symbol,
+                                                                @Param("from") Instant from,
+                                                                @Param("to") Instant to);
 }

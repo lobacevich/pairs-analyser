@@ -58,7 +58,10 @@ public class PriceRecordServiceImpl implements PriceRecordService {
     @Transactional(readOnly = true)
     public AveragePriceDtoResponse getAveragePrice(LocalDate from, LocalDate to) {
         InstantRange range = getInstantRange(from, to);
-        return new AveragePriceDtoResponse(repository.findAveragePriceBetween(range.from(), range.to())
+        return new AveragePriceDtoResponse(repository.findAveragePriceBetween(
+                        binanceSymbol,
+                        range.from(),
+                        range.to())
                 .orElse(BigDecimal.ZERO));
     }
 
@@ -69,7 +72,10 @@ public class PriceRecordServiceImpl implements PriceRecordService {
                                      int page,
                                      int size) {
         InstantRange range = getInstantRange(from, to);
-        Page<PriceRecord> pricePage = repository.findByFetchedAtBetween(range.from(), range.to(),
+        Page<PriceRecord> pricePage = repository.findBySymbolAndFetchedAtBetween(
+                binanceSymbol,
+                range.from(),
+                range.to(),
                 PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "fetchedAt")));
 
         List<PriceDtoResponse> items = pricePage.stream()
@@ -88,6 +94,7 @@ public class PriceRecordServiceImpl implements PriceRecordService {
                                      LocalDate to) {
         InstantRange range = getInstantRange(from, to);
         List<PriceRecord> records = repository.findByFetchedAtBetweenOrderByFetchedAtAsc(
+                binanceSymbol,
                 range.from(),
                 range.to());
         return new TrendDtoResponse(binanceSymbol, from, to, trendAnalyzer.calculate(records));
